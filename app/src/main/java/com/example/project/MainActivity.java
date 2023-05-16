@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // används för att kunna lagra preference
+        // används för att kunna hämta lagrade preference
         myPreferenceRef = getSharedPreferences("hej", MODE_PRIVATE);
         // används för att kunna edit preference
         myPreferenceEditor = myPreferenceRef.edit();

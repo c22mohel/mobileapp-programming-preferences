@@ -1,9 +1,70 @@
 
 # Rapport
 
-**Skriv din rapport här!**
+Det första jag gjorde var att skapa layout för mainActivity med två buttons, en textview och en editText. 
+en button använd för att byta till second activity och änvänder denna kod för att kunna byta.
 
-_Du kan ta bort all text som finns sedan tidigare_.
+    click.setOnClickListener(new View.OnClickListener() {
+    @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
+        }
+    });
+den andra knappen används för att kunna spara shared prefrence och den använder denna kod. 
+
+        public void savePref(){
+
+            //hämtar texten
+            EditText newPrefText=new EditText(this);
+            newPrefText=(EditText)findViewById(R.id.settingseditview);
+    
+            // sparar nya prefrence
+            myPreferenceEditor.putString("MyAppPreferenceString", newPrefText.getText().toString());
+            myPreferenceEditor.apply();
+    
+            //skapar en ny instans av textview
+            TextView prefTextRef=new TextView(this);
+            //länkar preftextref med id
+            prefTextRef=(TextView)findViewById(R.id.textView123);
+            //visar perference
+            prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
+    
+            // Clear the EditText
+            newPrefText.setText("");
+        }
+savePref är det som händer när man clickar på andra knappen. För att prefrence ska visas när man stänger och laddar om programmet 
+så måste denna kod läggas till på oncreate också.
+
+            //skapar en ny instans av textview
+            TextView prefTextRef=new TextView(this);
+            //länkar preftextref med id
+            prefTextRef=(TextView)findViewById(R.id.textView123);
+            //visar perference
+            prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
+
+för att det ska fungera så behövs även denna kod
+
+        // används för att kunna hämta lagrade preference
+        myPreferenceRef = getSharedPreferences("hej", MODE_PRIVATE);
+        // används för att kunna edit preference
+        myPreferenceEditor = myPreferenceRef.edit();
+
+Sedan så skapade jag en till activity och fixade layout för den med en button och en textveiw. Här behöver vi endast visa up prefrence 
+vi behöver int edit den. för att göra detta så behöver vi hämta shared prefrence och det gör man med den här koden.
+
+    private SharedPreferences myPreferenceRef;
+
+    // används för att kunna hämta lagrade preference
+    myPreferenceRef = getSharedPreferences("hej", MODE_PRIVATE);
+
+För att kunna skriva ut prefrence så kan vi nu göra som på första activity. Det enda som behövs byta är id på textView, så att den visas up på rätt plats.
+
+    prefTextRef=(TextView)findViewById(R.id.textView2);
+
+knappen för att byta tillbacks till första activity görs ppå samma sätt som tidigare. 
+
+
 
 ## Följande grundsyn gäller dugga-svar:
 
@@ -33,7 +94,8 @@ function errorCallback(error) {
 
 Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
+![](main.png)
+![](main2.png)
 
 Läs gärna:
 

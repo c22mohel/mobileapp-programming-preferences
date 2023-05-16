@@ -23,7 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
         // för tillbacka knap
         tillbacks = findViewById(R.id.byttill1);
 
-        // används för att kunna lagra preference
+        // används för att kunna hämta lagrade preference
         myPreferenceRef = getSharedPreferences("hej", MODE_PRIVATE);
 
         //skapar en ny instans av textview
