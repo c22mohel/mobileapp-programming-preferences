@@ -28,13 +28,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // används för att kunna lagra preference
-        myPreferenceRef = getPreferences(MODE_PRIVATE);
+        myPreferenceRef = getSharedPreferences("hej", MODE_PRIVATE);
         // används för att kunna edit preference
         myPreferenceEditor = myPreferenceRef.edit();
 
         //länkar knappar till id
         click = findViewById(R.id.swap);
         saveit = findViewById(R.id.savepref);
+
+        //skapar en ny instans av textview
+        TextView prefTextRef=new TextView(this);
+        //länkar preftextref med id
+        prefTextRef=(TextView)findViewById(R.id.textView123);
+        //visar perference
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
 
 
         //onclick för att byta mellan sidorna
