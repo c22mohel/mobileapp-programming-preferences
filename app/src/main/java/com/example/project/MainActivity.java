@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     Button click;
+    Button saveit;
 
 
     private SharedPreferences myPreferenceRef;
@@ -30,15 +32,12 @@ public class MainActivity extends AppCompatActivity {
         // används för att kunna edit preference
         myPreferenceEditor = myPreferenceRef.edit();
 
+        //länkar knappar till id
         click = findViewById(R.id.swap);
+        saveit = findViewById(R.id.savepref);
 
-        //skapar en ny instans av textview
-        TextView prefTextRef=new TextView(this);
-        //länkar preftextref med id
-        prefTextRef=(TextView)findViewById(R.id.textView123);
-        //
-        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
 
+        //onclick för att byta mellan sidorna
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +45,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //onclick för att spara prefrence
+        saveit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePref();
+            }
+        });
+    }
+
+    public void savePref(){
+
+        //hämtar texten
+        EditText newPrefText=new EditText(this);
+        newPrefText=(EditText)findViewById(R.id.settingseditview);
+
+        // sparar nya prefrence
+        myPreferenceEditor.putString("MyAppPreferenceString", newPrefText.getText().toString());
+        myPreferenceEditor.apply();
+
+        //skapar en ny instans av textview
+        TextView prefTextRef=new TextView(this);
+        //länkar preftextref med id
+        prefTextRef=(TextView)findViewById(R.id.textView123);
+        //visar perference
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
+
+        // Clear the EditText
+        newPrefText.setText("");
     }
 
 }
